@@ -1,19 +1,25 @@
+import { lazy } from '@loadable/component';
+import React from 'react';
+import { Link, Redirect, Switch } from 'react-router-dom';
 
-import LoginPage from "../pages/LoginPage"
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
-const { Switch, Redirect, Route } = require("react-router-dom");
+const LoginPage = lazy(() => import('../pages/LoginPage'));
+const UserPage = lazy(() => import('../pages/UserPage'));
 
-function MainRouter(){
-    return (
-      <Switch>
-        <Route path = "/">
-          <LoginPage/>
-        </Route>
-        
+function MainRouter() {
 
-        
-      </Switch>
-    );
+  return (
+    <Switch>
+      <PublicRoute exact path="/login" redirect="/user">
+        <LoginPage />
+      </PublicRoute>
+      <PrivateRoute exact path="/user" redirect="/login">
+        <UserPage />
+      </PrivateRoute>
+    </Switch>
+  );
 }
 
 export default MainRouter;

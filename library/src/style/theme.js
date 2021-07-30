@@ -9,7 +9,10 @@ const theme = {
         main : '#FF385C',
         warning : '#D93900',
         softBlack : '#484848',
-        black : '#222222'
+        black : '#222222',
+        background_blue : '#3494E6',
+        backgournd_pink : '#EC6EAD'
+
     }
 };
 
