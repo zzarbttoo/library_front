@@ -10,7 +10,9 @@ function Main({children}){
 
 const StyledMain = styled.main`
   min-height: 100vh;
-  background-color: ${({ theme }) => theme.color.softGeay};
+  background: ${({theme}) => theme.color.background_blue};  
+  background: -webkit-linear-gradient(to right, ${({theme}) => theme.color.background_pink}, ${({theme}) => theme.color.background_blue});  
+  background: linear-gradient(to right, ${({theme}) => theme.color.backgournd_pink}, ${({theme}) => theme.color.background_blue}); 
 `;
 
 export default Main;

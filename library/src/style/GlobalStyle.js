@@ -8,9 +8,7 @@ const GlobalStyle = createGlobalStyle`
     * {
       box-sizing : border-box;
       color : ${theme.color.black};
-      background: ${theme.color.background_blue};  
-      background: -webkit-linear-gradient(to right, ${theme.color.background_pink}, ${theme.color.background_blue});  
-      background: linear-gradient(to right, ${theme.color.backgournd_pink}, ${theme.color.background_blue}); 
+     
 
     };
 

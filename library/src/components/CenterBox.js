@@ -10,6 +10,7 @@ function CenterBox({ children }) {
     );
   }
   
+  
   const StyledWrapper = styled.div`
     position: fixed;
     top: 50%;
@@ -21,8 +22,7 @@ function CenterBox({ children }) {
     max-width: 90%;
     padding: 50px 0;
     border-radius: 12px;
-    background: ${({theme}) => theme.color.white}
-    background-color: ${({theme}) => theme.color.white}
+    background-color: ${({theme}) => theme.color.softGray};
     
     & > div {
       width: 73%;

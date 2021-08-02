@@ -8,7 +8,7 @@ function FormInput({id, label, ...rest}){
             <label htmlFor ={id}>
                 {label}
             </label>
-            <StyledInput id = {id} {...rest}/>
+            <StyledInput id = {id}/>
         </>
     )
 }
@@ -26,10 +26,11 @@ const StyledInput = styled.input`
   outline: 0;
   transition: all 0.3s;
   &::placeholder {
-    color: ${({ theme }) => theme.color.gray};
+    color: ${({ theme }) => theme.color.main};
   }
+
   &:focus {
-    border-color: ${({ theme }) => theme.color.main};
+    border-color: ${({ theme }) => theme.color.black};
   }
 `
 
