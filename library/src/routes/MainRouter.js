@@ -7,6 +7,7 @@ import PublicRoute from './PublicRoute';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const UserPage = lazy(() => import('../pages/UserPage'));
+const SignUpPage = lazy(() => import('../pages/SignUpPage'));
 
 function MainRouter() {
 
@@ -18,6 +19,9 @@ function MainRouter() {
       <PrivateRoute exact path="/user" redirect="/login">
         <UserPage />
       </PrivateRoute>
+      <PublicRoute exact path = "/signUp" redirect ="signUp">
+        <SignUpPage/>
+      </PublicRoute>
     </Switch>
   );
 }

@@ -5,10 +5,10 @@ function FormInput({id, label, ...rest}){
 
     return (
         <>
-            <label htmlFor ={id}>
+            <label htmlFor ={id} className = "a11yHidden">
                 {label}
             </label>
-            <StyledInput id = {id}/>
+            <StyledInput id = {id} {...rest}/>
         </>
     )
 }
@@ -26,12 +26,18 @@ const StyledInput = styled.input`
   outline: 0;
   transition: all 0.3s;
   &::placeholder {
-    color: ${({ theme }) => theme.color.main};
+    color: ${({ theme }) => theme.color.darkGray};
   }
 
   &:focus {
     border-color: ${({ theme }) => theme.color.black};
   }
+
+
+  &:focus::-webkit-input-placeholder{
+    opacity: 0;
+  }
+
 `
 
 export default FormInput;
