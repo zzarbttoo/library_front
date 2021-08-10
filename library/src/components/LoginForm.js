@@ -3,38 +3,73 @@ import Main from './Main';
 import styled from 'styled-components';
 import FormInput from './FormInput';
 import Button from './Button'
-import {useState} from 'react';
+import React, {useState} from 'react';
 import LoginApi from '../api/LoginApi';
+import { useUpdateEffect } from 'react-use';
+import useAsync from '../hook/useAsync';
 
 
-const submitFunc = async(e) =>{
-
-
-    e.preventDefault();
-    //TODO : validate Check
-    //email 형식 체크 
-    //password 형식 체크 
-
-
-    console.log(e.target.user_email.value);
-    console.log(e.target.user_password.value);
-
-}
 
 //TODO : validate check func
 
 function LoginForm(){
 
-const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMsg, setErrorMsg] = useState(null);
+
+   console.log(useAsync(LoginApi.sign_in));
+
+    //console.log(loginState);
+    //const {loading, data, error} = loginState;
+
+
+
+    const onIdChange = (e) => {
+
+        //console.log(e.target.value);
+        setId(e.target.value);
+    
+    }
+    
+    const onPasswordChange = (e) =>{
+        //console.log(e.target.value);  
+        setPassword(e.target.value);
+    
+    }
+    
+    const submitFunc = async(e) =>{
+    
+    
+        e.preventDefault();
+        //TODO : validate Check
+        //email 형식 체크 
+        //password 형식 체크 
+    
+    
+        console.log(e.target.user_email.value);
+        console.log(e.target.user_password.value);
+
+        //console.log(loginState);
+        //console.log(loading);
+        //console.log(await loading({id, password}));
+    
+    }
+
+    //state가 바뀔 때 실행된다 
+    useUpdateEffect(() => {
+        //console.log("hello");
+
+    });
 
     return (
         <Main>
             <CenterBox>
                 <StyledH2>Hello World~</StyledH2>
                 <form onSubmit = {submitFunc}>
-                <FormInput id = "user_email" label = "user_email " placeholder = "email" autoFocus/>
+                <FormInput onChange = {onIdChange} id = "user_email" label = "user_email " placeholder = "email" autoFocus/>
                 <StyledBlankWrapper>
-                <FormInput id = "user_password" label = "user_password" placeholder = "password" type = "password"/>
+                <FormInput onChange = {onPasswordChange} id = "user_password" label = "user_password" placeholder = "password" type = "password"/>
                 </StyledBlankWrapper>
                 <Button>Login</Button>
                 </form>

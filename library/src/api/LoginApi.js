@@ -3,13 +3,12 @@ import axios from 'axios';
 
 class LoginApi{
 
-
     //TODO : url secret file로 빼기
     constructor(){
-        this.userApiClient = axios.create({
-            baseURL : 'localhost:3000/users',
-            timeout : 1000
-        });
+        // this.userApiClient = axios.create({
+        //     baseURL : 'localhost:3000/users',
+        //     timeout : 1000
+        // });
     }
 
     async sign_in(user_id, user_email){
