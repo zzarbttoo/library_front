@@ -20,12 +20,19 @@ function reducer(state, action){
                 data : null, 
                 error : action.error   
             };
+        case 'CLEAN_STATE' : {
+            return {
+                loading : false, 
+                data: null,
+                error: false
+            }
+        }
         default : 
             throw new Error(`Unhandled action type: ${action.type}`);
     }
 }
 
-function useAsync(callback, callOnMount){
+const useAsync = (callback, immediate = true) => {
 
     const [state, dispatch] = useReducer(reducer, {
         loading : false, 
@@ -33,56 +40,35 @@ function useAsync(callback, callOnMount){
         error: false
     });
 
-    // const fetchData = async () => {
-    //     dispatch({ type : 'LOADING'});
-    //     try{
-    //         const data = await callback();
-    //         console.log('data logging ::: ' + data);
-    //         dispatch({type : 'SUCCESS', data})
+    const execute = useCallback(async(...args) => {
+        dispatch({type : 'LOADING'});
 
-    //         return true
-    //     }catch(e){
-    //         dispatch({type : 'ERROR', error:e});
-    //     }
-    // }
+        console.log(...args);
+        console.log('callback ::: ' + callback);
 
-    const run = useCallback(
-        async (...args) => {
-            dispatch({type : 'Loading'});
+        try{
+            const data = await callback(...args);
+            setTimeout(() => dispatch({ type : 'SUCCESS', data}), 900);
 
-            //header 등을 지정해준다
-            // const requestConfig = {
-            // };
+            console.log('data ::: ' + data);
+        }catch(error){
+            setTimeout(() => dispatch({type : 'ERROR', error}), 900);
+            console.log('error ::: ' + error);
+        }
+    }, [callback]);
 
-            try{
-                const data = await callback(...args);
-                setTimeout(() => dispatch({type : 'SUCCESS', data}), 900);
-
-                return true
-
-            }catch(error){
-                setTimeout(() => dispatch({type :'ERROR', error}), 900);
-            }
-        },
-        [callback],
-    );
+    useEffect(() => {
+        if (immediate){
+            execute();
+        }
+    }, [execute, immediate]);
 
 
+    //console.log(state);
+    //console.log(dispatch);
+    //console.log("callOnMount ::: " + callOnMount);
 
-    // useEffect(() => {
-    //     if (skip) return;
-    //     fetchData();
-    // }, deps);
-
-    useEffect (() => {
-        callOnMount && run();
-
-        return () => {
-            dispatch({type : 'CLEAN_STATE'});
-
-        };
-
-    }, [callOnMount, run]);
+    return [state, execute];
 
 
 }

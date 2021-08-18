@@ -6,6 +6,7 @@ import Button from './Button'
 import React, {useState} from 'react';
 import LoginApi from '../api/LoginApi';
 import { useUpdateEffect } from 'react-use';
+import { useHistory } from 'react-router-dom';
 import useAsync from '../hook/useAsync';
 
 
@@ -14,15 +15,22 @@ import useAsync from '../hook/useAsync';
 
 function LoginForm(){
 
+    const loginApi = new LoginApi();
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const [errorMsg, setErrorMsg] = useState(null);
+    const history = useHistory();
 
-   console.log(useAsync(LoginApi.sign_in));
 
+    const [state, execute] = useAsync(loginApi.sign_in, false);
+    //console.log(state);
+    const {loading, data, error} =state;
+    //console.log(loading, data, error);
+
+
+    //console.log(useAsync(LoginApi.sign_in));
     //console.log(loginState);
     //const {loading, data, error} = loginState;
-
 
 
     const onIdChange = (e) => {
@@ -39,16 +47,31 @@ function LoginForm(){
     }
     
     const submitFunc = async(e) =>{
-    
-    
+
         e.preventDefault();
+
+        execute({'USER_EMAIL' : id, 'USER_PASSWORD' : password});
+ 
+
         //TODO : validate Check
         //email 형식 체크 
         //password 형식 체크 
+
+        
     
     
-        console.log(e.target.user_email.value);
-        console.log(e.target.user_password.value);
+        //console.log(e.target.user_email.value);
+        //console.log(e.target.user_password.value);
+
+        
+
+        // const isLoginSuccess = loginApi.sign_in(id, password);
+
+        // console.log(isLoginSuccess);
+
+        // if (isLoginSuccess) history.pushState('/user');
+
+
 
         //console.log(loginState);
         //console.log(loading);
@@ -64,7 +87,7 @@ function LoginForm(){
 
     return (
         <Main>
-            <CenterBox>
+            <CenterBox> 
                 <StyledH2>Hello World~</StyledH2>
                 <form onSubmit = {submitFunc}>
                 <FormInput onChange = {onIdChange} id = "user_email" label = "user_email " placeholder = "email" autoFocus/>

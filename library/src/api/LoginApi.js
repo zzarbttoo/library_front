@@ -5,20 +5,16 @@ class LoginApi{
 
     //TODO : url secret file로 빼기
     constructor(){
-        // this.userApiClient = axios.create({
-        //     baseURL : 'localhost:3000/users',
-        //     timeout : 1000
-        // });
+        this.apiClient = axios.create({
+        baseURL : 'http://localhost:3000/api',
+        timeout : 1000,
+        });
     }
 
-    async sign_in(user_id, user_email){
+    async sign_in(...args){
 
-        console.log(user_id);
-        console.log(user_email);
-
-        //const response = await this.userApiClient.post('/sign_in');
-        //console.log(response);
-
+        const response = await this.apiClient.post('/users/sign_in', ...args);
+        return response.data;
 
     }
 
