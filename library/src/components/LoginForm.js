@@ -49,8 +49,10 @@ function LoginForm(){
     const submitFunc = async(e) =>{
 
         e.preventDefault();
-
-        execute({'USER_EMAIL' : id, 'USER_PASSWORD' : password});
+        
+        //console.log(loginApi.sign_in({'user_email' : id, 'user_password' : password}));
+        await execute(loginApi.sign_in({'user_email' : id, 'user_password' : password}));
+        //execute();
  
 
         //TODO : validate Check

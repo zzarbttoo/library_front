@@ -43,16 +43,17 @@ const useAsync = (callback, immediate = true) => {
     const execute = useCallback(async(...args) => {
         dispatch({type : 'LOADING'});
 
-        console.log(...args);
-        console.log('callback ::: ' + callback);
-
+        
         try{
-            const data = await callback(...args);
-            setTimeout(() => dispatch({ type : 'SUCCESS', data}), 900);
 
+            const data = await callback(args);
+            //console.log('data ::: ' + data);
+            //setTimeout(() => dispatch({ type : 'SUCCESS', data}), 900);
             console.log('data ::: ' + data);
+
         }catch(error){
-            setTimeout(() => dispatch({type : 'ERROR', error}), 900);
+            //setTimeout(() => dispatch({type : 'ERROR', error}), 900);
+            //console.log('error ::: ' + error);
             console.log('error ::: ' + error);
         }
     }, [callback]);
