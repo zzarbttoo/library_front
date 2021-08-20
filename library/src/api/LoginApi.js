@@ -1,46 +1,49 @@
+import { ControlCameraOutlined } from '@material-ui/icons';
 import axios from 'axios';
 
 
 class LoginApi{
 
     //TODO : url secret file로 빼기
-
     constructor(){
+
         this.apiClient = axios.create({
         baseURL : 'http://localhost:3000/api',
         timeout : 1000,
         });
 
-        console.log('render time ::: ' + this.apiClient);
     }
 
-    async sign_in(...args){
+    sign_in = async(...args) => {
 
-        //console.log('args ::: ' + JSON.stringify(args));
-        //console.log('this.apiClient :: ' + this.apiClient);
-        await this.apiClient.post('/users/sign_in', args[0]).then(
-            response =>{
-                console.log(response);
-                return response;
-            }, error => {
-                console.log(error.response);
-            }
+
+        const response = await this.apiClient.post('/users/sign_in', args[0]).then(
+        (context) => {
+            console.log(context);
+        }
 
         );
+        //console.log('sign_in response ::: ' + JSON.stringify(response));
+
+        // await this.apiClient.post('/users/sign_in', args[0]).then(
+        //     response =>{
+        //         console.log(response);
+        //         return response.data;
+        //     }, error => {
+        //         console.log(error.response);
+        //         return error.data;
+        //     }
+        // );
 
 
-        // const response = await this.apiClient.get('/');
-        // console.log(response.data);
-
-        
 
     }
 
-    async sign_up(){
+    sign_up = async () => {
 
     }
 
-    async sign_out(){
+    sign_out = async() => {
 
     }
 

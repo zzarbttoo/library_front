@@ -23,67 +23,34 @@ function LoginForm(){
 
 
     const [state, execute] = useAsync(loginApi.sign_in, false);
-    //console.log(state);
     const {loading, data, error} =state;
-    //console.log(loading, data, error);
-
-
-    //console.log(useAsync(LoginApi.sign_in));
-    //console.log(loginState);
-    //const {loading, data, error} = loginState;
 
 
     const onIdChange = (e) => {
 
-        //console.log(e.target.value);
         setId(e.target.value);
     
     }
     
     const onPasswordChange = (e) =>{
-        //console.log(e.target.value);  
         setPassword(e.target.value);
     
     }
     
     const submitFunc = async(e) =>{
 
-        e.preventDefault();
-        
-        //console.log(loginApi.sign_in({'user_email' : id, 'user_password' : password}));
-        await execute(loginApi.sign_in({'user_email' : id, 'user_password' : password}));
-        //execute();
- 
-
         //TODO : validate Check
         //email 형식 체크 
         //password 형식 체크 
 
-        
-    
-    
-        //console.log(e.target.user_email.value);
-        //console.log(e.target.user_password.value);
+        e.preventDefault();
 
-        
-
-        // const isLoginSuccess = loginApi.sign_in(id, password);
-
-        // console.log(isLoginSuccess);
-
-        // if (isLoginSuccess) history.pushState('/user');
-
-
-
-        //console.log(loginState);
-        //console.log(loading);
-        //console.log(await loading({id, password}));
-    
+        const response = await execute(loginApi.sign_in({'user_email' : id, 'user_password' : password}));
+   
     }
 
     //state가 바뀔 때 실행된다 
     useUpdateEffect(() => {
-        //console.log("hello");
 
     });
 
