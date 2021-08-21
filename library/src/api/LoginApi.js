@@ -9,7 +9,6 @@ class LoginApi{
 
         this.apiClient = axios.create({
         baseURL : 'http://localhost:3000/api',
-        timeout : 1000,
         });
 
     }
@@ -17,26 +16,17 @@ class LoginApi{
     sign_in = async(...args) => {
 
 
-        const response = await this.apiClient.post('/users/sign_in', args[0]).then(
-        (context) => {
-            console.log(context);
-        }
+        await this.apiClient.post('/users/sign_in', args[0])
+        .then(response => {
+            console.log(response);
+            return response;
+        }).catch(error => {
 
-        );
-        //console.log('sign_in response ::: ' + JSON.stringify(response));
-
-        // await this.apiClient.post('/users/sign_in', args[0]).then(
-        //     response =>{
-        //         console.log(response);
-        //         return response.data;
-        //     }, error => {
-        //         console.log(error.response);
-        //         return error.data;
-        //     }
-        // );
-
-
-
+            //console.log('sign_in error ::: ' + JSON.stringify(error.response));
+            //console.log(error.response);
+            console.log(error.response.data);
+        })
+        
     }
 
     sign_up = async () => {

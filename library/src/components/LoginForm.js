@@ -45,7 +45,10 @@ function LoginForm(){
 
         e.preventDefault();
 
-        const response = await execute(loginApi.sign_in({'user_email' : id, 'user_password' : password}));
+        
+        const response= await loginApi.sign_in({'user_email' : id, 'user_password' : password});
+        //const response = await execute(loginApi.sign_in({'user_email' : id, 'user_password' : password}));
+        console.log(response);
    
     }
 

@@ -44,12 +44,11 @@ const useAsync = (callback, immediate = true) => {
 
     const execute = useCallback(async(...args) => {
         dispatch({type : 'LOADING'});
-
         
         try{
-
+            console.log('execute start');
             const response = await callback(args);
-            console.log('response ::: ' + response);
+            console.log(response);
 
 
         }catch(error){
