@@ -18,7 +18,7 @@ function reducer(state, action){
             return{
                 loading : false,
                 data : null, 
-                error : action.error   
+                error : action.error
             };
         case 'CLEAN_STATE' : {
             return {
@@ -41,20 +41,19 @@ const useAsync = (callback, immediate = true) => {
     });
 
 
-
-    const execute = useCallback(async(...args) => {
+    const execute = useCallback(async (...args) => {
         dispatch({type : 'LOADING'});
         
         try{
-            console.log('execute start');
-            const response = await callback(args);
-            console.log(response);
 
+            const data = await args[0];
+
+            dispatch({type : 'SUCCESS', data : data});
+            return true;
 
         }catch(error){
-            //setTimeout(() => dispatch({type : 'ERROR', error}), 900);
-            //console.log('error ::: ' + error);
-            console.log('error ::: ' + error);
+            dispatch({type : 'ERROR', error : error});
+
         }
     }, [callback]);
 
@@ -64,10 +63,6 @@ const useAsync = (callback, immediate = true) => {
         }
     }, [execute, immediate]);
 
-
-    //console.log(state);
-    //console.log(dispatch);
-    //console.log("callOnMount ::: " + callOnMount);
 
     return [state, execute];
 
