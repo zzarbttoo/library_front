@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Button({children}){
-    return (<StyledButton>
+function Button({children, icon}){
+    return (<StyledButton >
         {children}
+        {icon}
     </StyledButton>);
 
 }

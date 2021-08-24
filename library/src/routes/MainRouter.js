@@ -19,7 +19,7 @@ function MainRouter() {
       <PrivateRoute exact path="/user" redirect="/login">
         <UserPage />
       </PrivateRoute>
-      <PublicRoute exact path = "/signUp" redirect ="signUp">
+      <PublicRoute exact path = "/signUp" redirect ="/signUp">
         <SignUpPage/>
       </PublicRoute>
     </Switch>

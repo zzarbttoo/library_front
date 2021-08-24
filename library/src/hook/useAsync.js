@@ -1,5 +1,6 @@
 import { useReducer, useEffect, useCallback} from "react";
 
+
 function reducer(state, action){
     switch(action.type){
         case 'LOADING':
@@ -42,16 +43,19 @@ const useAsync = (callback, immediate = true) => {
 
 
     const execute = useCallback(async (...args) => {
+
         dispatch({type : 'LOADING'});
         
         try{
 
             const data = await args[0];
-
+            console.log(data);
+            
             dispatch({type : 'SUCCESS', data : data});
             return true;
 
         }catch(error){
+
             dispatch({type : 'ERROR', error : error});
 
         }

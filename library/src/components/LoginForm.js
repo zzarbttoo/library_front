@@ -8,8 +8,10 @@ import LoginApi from '../api/LoginApi';
 import { useUpdateEffect } from 'react-use';
 import { useHistory } from 'react-router-dom';
 import useAsync from '../hook/useAsync';
+import {useCookies} from 'react-cookie';
 
 
+import { CircularProgress } from '@material-ui/core';
 
 //TODO : validate check func
 
@@ -20,6 +22,7 @@ function LoginForm(){
     const [password, setPassword] = useState('');
     const [errorMsg, setErrorMsg] = useState(null);
     const history = useHistory();
+    const [cookies, setCookie] = useCookies(['email']);
 
 
     const [state, execute] = useAsync(loginApi.sign_in, false);
@@ -53,24 +56,19 @@ function LoginForm(){
     }
     
     const submitFunc = async(e) =>{
-
-        //TODO : validate Check
-        //email 형식 체크 
-        //password 형식 체크 
-
-        
-
         e.preventDefault();
 
         if (!isValidate()) return;
-        
+        if (errorMsg) setErrorMsg(null);
+ 
+
         const isSuccess = await execute(loginApi.sign_in({'user_email' : id, 'user_password' : password}));
+        setCookie('email', id, {path : '/'});
 
         if (isSuccess) history.push('/user');
 
     }
 
-    //state가 바뀔 때 실행된다 
     useUpdateEffect(() => {
 
         if (state.error) {
@@ -89,7 +87,7 @@ function LoginForm(){
                 <FormInput onChange = {onPasswordChange} id = "user_password" label = "user_password" placeholder = "password" type = "password"/>
                 </StyledBlankWrapper>
                 {errorMsg && <StyledErrorMsg>{errorMsg}</StyledErrorMsg>}
-                <Button>Login</Button>
+                <Button icon = {state.loading && <CircularProgress size = "13px"/>}>Login</Button>
                 </form>
             </CenterBox>
         </Main>
